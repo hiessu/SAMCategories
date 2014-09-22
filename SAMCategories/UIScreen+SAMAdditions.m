@@ -19,7 +19,7 @@
 - (CGRect)sam_boundsForOrientation:(UIInterfaceOrientation)orientation {
 	CGRect bounds = [self bounds];
 
-	if (UIInterfaceOrientationIsLandscape(orientation)) {
+	if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1 && UIInterfaceOrientationIsLandscape(orientation)) {
 		CGFloat buffer = bounds.size.width;
 
 		bounds.size.width = bounds.size.height;
@@ -34,7 +34,7 @@
 	static BOOL answer;
 
 	dispatch_once(&predicate, ^{
-		answer = ([self respondsToSelector:@selector(scale)] && [self scale] == 2.0f);
+		answer = ([self respondsToSelector:@selector(scale)] && [self scale] > 1.f);
 	});
 	return answer;
 }
